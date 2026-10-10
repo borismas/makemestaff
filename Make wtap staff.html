@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Make wtap staff</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1b2cc1;--ink:#fff;--paper:#f6f3ea;--paper-ink:#141414;--lanyard:#ffd23f;--stamp:#e5322d;--mute:#c9cffa;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+:root:not([data-theme="light"]){color-scheme:light dark}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;overflow-x:hidden;transition:background .3s}
+h1,h2,h3,p{margin:0}
+.pin{height:320vh;position:relative}
+.stick{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;display:grid;place-items:center}
+/* hero */
+.bgword{position:absolute;inset:auto 0 6vh;text-align:center;font-weight:800;font-size:clamp(5rem,26vw,24rem);line-height:.8;letter-spacing:-.05em;color:rgba(255,255,255,.07);white-space:nowrap;will-change:transform}
+.lanyard{position:absolute;top:-10vh;left:50%;width:34px;height:calc(50vh - 150px);background:repeating-linear-gradient(135deg,var(--lanyard) 0 10px,#f2b900 10px 20px);transform:translateX(-50%);transform-origin:top;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.badge{position:relative;width:min(300px,76vw);aspect-ratio:3/4.2;background:var(--paper);color:var(--paper-ink);border-radius:20px;padding:22px;display:flex;flex-direction:column;box-shadow:0 40px 80px -20px rgba(0,0,0,.55);transform-origin:50% -80px;margin-top:22vh;will-change:transform}
+.badge::before{content:"";position:absolute;top:14px;left:50%;width:64px;height:12px;border-radius:8px;background:#cfc9b8;transform:translateX(-50%)}
+.role{margin-top:26px;font-size:clamp(2.6rem,12vw,3.6rem);font-weight:800;letter-spacing:-.04em;line-height:.9;transition:opacity .2s}
+.photo{margin-top:auto;aspect-ratio:1;width:56%;border-radius:50%;background:radial-gradient(circle at 50% 38%,#1b2cc1 0 22%,transparent 23%),radial-gradient(ellipse at 50% 100%,#1b2cc1 0 46%,transparent 47%),#cfd3fb}
+.name{margin-top:14px;font-weight:700;font-size:1.25rem}
+.small{font-size:.85rem;opacity:.6}
+.stamp{position:absolute;inset:auto auto 34% 50%;font-weight:800;font-size:clamp(3rem,13vw,4.4rem);letter-spacing:-.02em;color:var(--stamp);border:6px solid var(--stamp);border-radius:12px;padding:0 .2em;background:rgba(246,243,234,.9);opacity:0;transform:translate(-50%,0) rotate(-14deg) scale(3);will-change:transform,opacity}
+.hint{position:absolute;bottom:4vh;left:0;right:0;text-align:center;color:var(--mute);font-size:1rem;transition:opacity .3s}
+.hint i{display:block;width:2px;height:34px;margin:10px auto 0;background:var(--mute);animation:drip 1.6s ease-in-out infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}60%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+.headline{position:absolute;top:7vh;left:0;right:0;text-align:center;padding:0 6vw;font-weight:800;font-size:clamp(2rem,6vw,4.6rem);letter-spacing:-.04em;line-height:.95}
+/* reasons */
+.reasons{background:var(--lanyard);color:var(--paper-ink);padding:18vh 6vw}
+.reasons h2{font-size:clamp(2.4rem,8vw,6.5rem);font-weight:800;letter-spacing:-.045em;line-height:.9;max-width:14ch}
+.row{display:grid;grid-template-columns:minmax(120px,1fr) 2fr;gap:3vw;align-items:end;border-top:3px solid var(--paper-ink);margin-top:10vh;padding-top:2.5vh;opacity:0;transform:translateY(60px) rotate(1.2deg);transition:opacity .8s,transform .9s cubic-bezier(.2,.8,.2,1)}
+.row.in{opacity:1;transform:none}
+.big{font-weight:800;font-size:clamp(4rem,16vw,12rem);letter-spacing:-.06em;line-height:.8}
+.row p{font-size:clamp(1.1rem,2.2vw,1.7rem);max-width:30ch;line-height:1.2;font-weight:500}
+/* horizontal */
+.hpin{height:380vh;background:var(--paper-ink);color:var(--paper)}
+.track{display:flex;gap:4vw;padding:0 8vw;will-change:transform;align-items:center}
+.card{flex:0 0 min(78vw,520px);min-height:56vh;border-radius:28px;padding:34px;display:flex;flex-direction:column;justify-content:space-between}
+.card h3{font-size:clamp(2rem,5vw,3.6rem);font-weight:800;letter-spacing:-.04em;line-height:.95}
+.card p{font-size:1.2rem;line-height:1.3;max-width:26ch}
+.c1{background:var(--bg)}.c2{background:var(--stamp)}.c3{background:var(--paper);color:var(--paper-ink)}.c4{background:var(--lanyard);color:var(--paper-ink)}
+.bar{position:absolute;left:8vw;right:8vw;bottom:6vh;height:4px;background:rgba(255,255,255,.18);border-radius:2px}
+.bar b{display:block;height:100%;width:0;background:var(--lanyard);border-radius:2px}
+.hh{position:absolute;top:7vh;left:8vw;font-size:1.1rem;color:#aaa}
+/* finale */
+.final{min-height:100vh;min-height:100dvh;display:grid;place-items:center;text-align:center;padding:12vh 6vw;background:var(--bg);overflow:hidden;position:relative}
+.final h2{font-weight:800;font-size:clamp(3rem,13vw,11rem);letter-spacing:-.06em;line-height:.85}
+.final h2 span{display:block;will-change:transform}
+.btn{display:inline-block;margin-top:6vh;padding:20px 38px;background:var(--lanyard);color:var(--paper-ink);font:700 1.3rem 'Bricolage Grotesque',sans-serif;border:0;border-radius:99px;cursor:pointer;transition:transform .25s,background .25s}
+.btn:hover{transform:scale(1.07) rotate(-2deg)}
+.btn:focus-visible{outline:4px solid #fff;outline-offset:4px}
+.msg{margin-top:3vh;min-height:1.6em;font-size:1.3rem;color:var(--lanyard);font-weight:700}
+.conf{position:absolute;width:12px;height:18px;pointer-events:none;border-radius:2px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#f6f3ea}}
+@media (max-width:640px){.row{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.row{opacity:1;transform:none;transition:none}.hint i{animation:none}}
+</style>
+</head>
+<body>
+
+<section class="pin" id="hero">
+  <div class="stick">
+    <h1 class="headline" id="hl">Right now, I'm a guest.</h1>
+    <div class="bgword" id="bgw">STAFF</div>
+    <div class="lanyard" id="lan"></div>
+    <div class="badge" id="badge">
+      <div class="role" id="role">Guest</div>
+      <div class="photo"></div>
+      <div class="name" id="nm">wtap</div>
+      <div class="small">Access: everywhere I already help</div>
+      <div class="stamp" id="stamp">STAFF</div>
+    </div>
+    <div class="hint" id="hint">Scroll to see the upgrade<i></i></div>
+  </div>
+</section>
+
+<section class="reasons">
+  <h2>Three reasons the badge is overdue.</h2>
+  <div class="row"><div class="big" data-n="100">0</div><p>percent of the time I show up, and I'm already doing the work.</p></div>
+  <div class="row"><div class="big" data-n="24">0</div><p>hours a day my head is in this community, even off the clock.</p></div>
+  <div class="row"><div class="big" data-n="1">0</div><p>person asking, and I'll earn the trust every single day.</p></div>
+</section>
+
+<section class="hpin" id="hp">
+  <div class="stick" style="place-items:center start">
+    <div class="hh">What I'd bring</div>
+    <div class="track" id="track">
+      <div class="card c1"><h3>I'm already here</h3><p>I help people, answer questions and keep things friendly without being asked.</p></div>
+      <div class="card c2"><h3>I stay calm</h3><p>When things get heated, I slow down, listen and fix the problem fairly.</p></div>
+      <div class="card c3"><h3>I follow the rules</h3><p>I know them, I respect them, and I explain them kindly.</p></div>
+      <div class="card c4"><h3>I'll grow</h3><p>I take feedback well and learn fast. Train me and watch.</p></div>
+    </div>
+    <div class="bar"><b id="bar"></b></div>
+  </div>
+</section>
+
+<section class="final">
+  <div>
+    <h2><span id="f1">Make it</span><span id="f2">official.</span></h2>
+    <button class="btn" id="yes">Hand over the badge</button>
+    <div class="msg" id="msg" aria-live="polite"></div>
+  </div>
+</section>
+
+<script>
+const NAME = "wtap"; // change me
+document.getElementById('nm').textContent = NAME;
+const $ = id => document.getElementById(id);
+const clamp = (v,a=0,b=1) => Math.min(b,Math.max(a,v));
+const rm = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+function prog(el){const r=el.getBoundingClientRect();return clamp(-r.top/(r.height-innerHeight));}
+
+function frame(){
+  // hero badge
+  const p = prog($('hero'));
+  const swing = Math.sin(p*14)*(1-p)*14;
+  $('badge').style.transform = `translateY(${p*-6}vh) rotate(${swing}deg) rotateY(${p*360}deg)`;
+  $('lan').style.transform = `translateX(-50%) rotate(${swing*.6}deg)`;
+  const s = clamp((p-.62)/.14);
+  $('stamp').style.opacity = s>0?1:0;
+  $('stamp').style.transform = `translate(-50%,0) rotate(-14deg) scale(${3-2*Math.pow(s,.5)})`;
+  $('role').style.opacity = p>.5?.15:1;
+  $('hl').textContent = p>.66 ? "Now it's on paper." : "Right now, I'm a guest.";
+  $('hint').style.opacity = p<.05?1:0;
+  $('bgw').style.transform = `translateX(${(.5-p)*20}vw)`;
+  document.body.style.background = p>.66 ? '#0f1a8a' : '';
+  // horizontal scroll
+  const h = prog($('hp'));
+  const tr = $('track');
+  tr.style.transform = `translateX(${-h*(tr.scrollWidth-innerWidth)}px)`;
+  $('bar').style.width = (h*100)+'%';
+  // finale text parallax
+  const fr = document.querySelector('.final').getBoundingClientRect();
+  const f = clamp(1-fr.top/innerHeight);
+  $('f1').style.transform = `translateX(${(1-f)*-30}vw)`;
+  $('f2').style.transform = `translateX(${(1-f)*30}vw)`;
+}
+if(!rm){addEventListener('scroll',()=>requestAnimationFrame(frame),{passive:true});addEventListener('resize',frame);frame();}
+else{$('stamp').style.cssText='opacity:1;transform:translate(-50%,0) rotate(-14deg)';}
+
+// reveal + count-up
+const io = new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting) return;
+  e.target.classList.add('in');
+  const b=e.target.querySelector('.big'), n=+b.dataset.n; let t0;
+  const step=t=>{t0=t0||t;const k=clamp((t-t0)/1200);b.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};
+  rm?b.textContent=n:requestAnimationFrame(step);
+  io.unobserve(e.target);
+}),{threshold:.4});
+document.querySelectorAll('.row').forEach(r=>io.observe(r));
+
+// button confetti
+$('yes').addEventListener('click',e=>{
+  $('msg').textContent = 'Welcome to the team.';
+  if(rm) return;
+  const box=document.querySelector('.final'), r=e.target.getBoundingClientRect(), br=box.getBoundingClientRect();
+  const cols=['#ffd23f','#e5322d','#f6f3ea','#7d8bff'];
+  for(let i=0;i<70;i++){
+    const d=document.createElement('i');d.className='conf';
+    d.style.left=(r.left-br.left+r.width/2)+'px';d.style.top=(r.top-br.top+r.height/2)+'px';
+    d.style.background=cols[i%4];box.appendChild(d);
+    const a=Math.random()*Math.PI*2,v=150+Math.random()*350;
+    d.animate([{transform:'translate(0,0) rotate(0)',opacity:1},
+      {transform:`translate(${Math.cos(a)*v}px,${Math.sin(a)*v+250}px) rotate(${Math.random()*720}deg)`,opacity:0}],
+      {duration:1400+Math.random()*800,easing:'cubic-bezier(.1,.7,.3,1)'}).onfinish=()=>d.remove();
+  }
+});
+</script>
+</body>
+</html>
